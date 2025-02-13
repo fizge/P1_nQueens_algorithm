@@ -2,8 +2,8 @@
 
 | Correo | Nombre y Apellidos | 
 | --- | --- |
-| alumno1 | Juán Fernández García |
-| alumno2 | María Díaz Martínez |
+| alumno1 | Guillermo Blanco Núñez |
+| alumno2 | Fiz Garrido Escudero |
 
 ## Problema: N - Reinas
 
