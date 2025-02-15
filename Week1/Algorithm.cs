@@ -36,11 +36,15 @@ public class AlgoritmoDeBusqueda
             List<(int,int)> vecinos = obtener_vecinos(solucion);
             foreach (ValueTuple<int,int> vecino in vecinos)
             {
-                Solucion nueva_solucion = new Solucion(new List<(int, int)>(solucion.Coords) { vecino });
-                if (!vistos.ContainsKey(nuevaSolucion.ToString()))
+                var nuevas_coords = solucion.coords.ToList();
+                nuevas_coords.Add(vecino); 
+
+                Solucion nueva_solucion = new Solucion(nuevas_coords);
+
+                if (!vistos.ContainsKey(nueva_solucion.ToString()))
                 {
-                    nuevaSolucion.Coste = solucion.Coste + calculoCoste(solucion, nuevaSolucion);
-                    candidatos.Anhadir(nuevaSolucion, prioridad = CalculoDePrioridad(nuevaSolucion, calculoHeuristica));
+                    nueva_solucion.coste = solucion.coste + calculo_coste(solucion, nueva_solucion);
+                    candidatos.anhadir(nueva_solucion, prioridad: calculo_de_prioridad(nueva_solucion, calculo_heuristica));
                 }
             }
         }
@@ -55,9 +59,9 @@ public class AEstrella : AlgoritmoDeBusqueda
 {
     public AEstrella() : base(new ColaDePrioridad()) { }
 
-    public override int CalculoDePrioridad(Solucion solucion, Func<Solucion, int> calculoHeuristica = null)
+    public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int> calculo_heuristica = null)
     {
-        return solucion.Coste + (calculoHeuristica != null ? calculoHeuristica(solucion) : 0);
+        return solucion.coste + (calculoHeuristica != null ? calculoHeuristica(solucion) : 0);
     }
 }
 

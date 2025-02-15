@@ -3,7 +3,7 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import heapq
-
+import time
 
 REMOVED = '<removed-task>'  # placeholder for a removed task
 
@@ -146,10 +146,14 @@ if __name__ == '__main__':
                 if nodo_j[-1] == nodo_i[-1] or abs(nodo_j[-1] - nodo_i[-1]) == abs(j - i):
                     return False
         return True
-
+    t0= time.time()
     astar = AEstrella()
     solucion, revisados = astar.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica)
+    tf = time.time()
+    print('Tiempo de ejecución:', round(tf-t0,2))
     print('Coordenadas:', solucion.coords)
     print('Nodos evaluadas:', revisados)
+    print(solucion)
+    
 
 
