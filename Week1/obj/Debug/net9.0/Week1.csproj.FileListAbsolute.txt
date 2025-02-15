@@ -1,0 +1,6 @@
+C:\Users\fizga\Desktop\ABIA\P1_nQueens_algorithm\week1\obj\Debug\net9.0\Week1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\fizga\Desktop\ABIA\P1_nQueens_algorithm\week1\obj\Debug\net9.0\Week1.AssemblyInfoInputs.cache
+C:\Users\fizga\Desktop\ABIA\P1_nQueens_algorithm\week1\obj\Debug\net9.0\Week1.AssemblyInfo.cs
+C:\Users\fizga\Desktop\ABIA\P1_nQueens_algorithm\week1\obj\Debug\net9.0\Week1.csproj.CoreCompileInputs.cache
+C:\Users\fizga\Desktop\ABIA\P1_nQueens_algorithm\week1\obj\Debug\net9.0\Week1.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\fizga\Desktop\ABIA\P1_nQueens_algorithm\week1\obj\Debug\net9.0\Week1.sourcelink.json
