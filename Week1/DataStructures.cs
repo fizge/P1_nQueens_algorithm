@@ -63,6 +63,7 @@ class ColaDePrioridad(ListaCandidatos):
         return len(self.buscador)
 */
 using System.Runtime.InteropServices;
+using Microsoft.VisualBasic;
 
 public class Solucion
 {
@@ -74,10 +75,21 @@ public class Solucion
         this.coords = coords;
         this.coste = coste;
     }
-
-    public override bool Equals()
+    public override bool Equals(object obj)
     {
-        
+        if (obj is Solucion other)
+        {
+            return string.Join(",", coords) == string.Join(",", other.coords);
+        }
+        return false;
+    }
+    public int CompareTo(Solucion other)
+    {
+        return coste.CompareTo(other.coste);
+    }
+    public override string ToString()
+    {
+        return string.Join("-", coords);
     }
 }
 
@@ -95,7 +107,7 @@ public class ListaCandidatos
     {
     }
 
-    public virtual int __len__()
+    public virtual int Count()
     {
     }
 
@@ -104,13 +116,50 @@ public class ListaCandidatos
 
 public class ColaDePrioridad:ListaCandidatos
 {
-    List<> cp;
-    Dictionary<> buscador;
-    public ColaDePrioridad()
+    List<(int, Solucion)> cp;
+
+    Dictionary<int, Solucion> buscador ;
+
+    public ColaDePrioridad(List<(int, Solucion)> cp, Dictionary<int, Solucion> buscador)
     {
-        this.cp = [];
-        this.buscador = {};
+        this.cp = cp = new List<(int, Solucion)>();
+        this.buscador = new Dictionary<int, Solucion>();;
+    }
+
+public override void Anhadir(Solucion solucion, int prioridad = 0)
+    {
+        string strSolucion = solucion.ToString();
+        if (buscador.Contains(strSolucion))
+        {
+            var solucionBuscador = buscador[strSolucion];
+            if (solucionBuscador.Prioridad <= prioridad)
+            {
+                return;
+            }
+            Borrar(solucion);
+        }
+        var entrada = (prioridad, solucion);
+        buscador[strSolucion] = entrada;
+        cp.Add(entrada);
+        cp = cp.OrderBy(x => x.Prioridad).ToList();
+    }
+
+    public override void Borrar(Solucion solucion)
+    {
+        string strSolucion = solucion.ToString();
+        if (buscador.TryGetValue(strSolucion, out var entrada))
+        {
+            buscador.Remove(strSolucion);
+            entrada.Solucion.Coste = REMOVED;
+        }
+    }
+
+    public override Solucion ObtenerSiguiente()
+    {//To do
+    }
+
+    public override int Count()
+    {
+        return buscador.Count;
     }
 }
-
-    
