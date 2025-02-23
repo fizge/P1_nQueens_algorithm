@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+
+
 public class AlgoritmoDeBusqueda
 {
     protected ListaCandidatos lista;
@@ -12,17 +16,17 @@ public class AlgoritmoDeBusqueda
         return 0;
     }
 
-    public (Solucion, int) busqueda(List solucion_inicial, Func<Solucion, bool> criterio_parada, Func<Solucion, List<(int, int)>> obtener_vecinos, Func<Solucion, Solucion, int> calculo_coste, Func<Solucion, int> calculo_heuristica = null)
+    public (Solucion, int) busqueda(List<(int, int)> solucion_inicial, Func<Solucion, bool> criterio_parada, Func<Solucion, List<(int, int)>> obtener_vecinos, Func<Solucion, Solucion, int> calculo_coste, Func<Solucion, int> calculo_heuristica = null)
     {
         ListaCandidatos candidatos = lista;
         candidatos.anhadir(new Solucion(solucion_inicial, 0));
         Dictionary<string, int> vistos = new Dictionary<string, int>();
         bool finalizado = false;
         int revisados = 0;
-
-        while (candidatos.Count > 0 && !finalizado)
+        Solucion solucion = null; // Inicializar solucion fuera del bucle while para poder acceder a ella después en el return de la función
+        while (candidatos.Count() > 0 && !finalizado)
         {
-            int solucion = candidatos.obtener_siguiente();
+            solucion = candidatos.obtener_siguiente();
             vistos[solucion.ToString()] = solucion.coste;
             revisados++;
 
@@ -32,11 +36,11 @@ public class AlgoritmoDeBusqueda
                 break;
             }
 
-            List<(int,int)> vecinos = obtener_vecinos(solucion);
-            foreach ((int,int) vecino in vecinos)
+            List<(int, int)> vecinos = obtener_vecinos(solucion);
+            foreach ((int, int) vecino in vecinos)
             {
-                List<(int,int)> nuevas_coords = solucion.coords.ToList();
-                nuevas_coords.Add(vecino); 
+                List<(int, int)> nuevas_coords = solucion.coords.ToList();
+                nuevas_coords.Add(vecino);
 
                 Solucion nueva_solucion = new Solucion(nuevas_coords);
 

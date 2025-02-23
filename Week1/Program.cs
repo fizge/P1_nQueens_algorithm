@@ -1,8 +1,11 @@
+using System;
+using System.Collections.Generic;
+
 public class Program
 {
     public static void Main(string[] args)
     {
-        List<(int,int)> solucion_inicial = new List<(int, int)>();
+        List<(int, int)> solucion_inicial = new List<(int, int)>();
         int reinas = 6;
 
         int calculo_coste(Solucion solucion, Solucion nueva_solucion)
@@ -18,7 +21,7 @@ public class Program
         List<(int, int)> obtener_vecinos(Solucion solucion)
         {
             int row = solucion.coords.Count == 0 ? -1 : solucion.coords[^1].Item1;
-            List<(int,int)> vecinos = new List<(int, int)>();
+            List<(int, int)> vecinos = new List<(int, int)>();
             if (row + 1 < reinas)
             {
                 for (int j = 0; j < reinas; j++)
@@ -48,8 +51,8 @@ public class Program
         }
 
         AEstrella astar = new AEstrella();
-        (List<(int,int)>,int) (solucion, revisados) = astar.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
-        Console.WriteLine("Coordenadas:  " + solucion.coords);
+        (Solucion solucion, int revisados) = astar.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+        Console.WriteLine("Coordenadas:  " + solucion.ToString());
         Console.WriteLine("Nodos evaluadas:  " + revisados);
     }
 }
