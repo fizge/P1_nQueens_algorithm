@@ -12,7 +12,11 @@ public class AlgoritmoDeBusqueda
         return 0;
     }
 
+<<<<<<< HEAD
     public (Solucion, int) busqueda(List<(int, int)> solucion_inicial, Func<Solucion, bool> criterio_parada, Func<Solucion, List<(int, int)>> obtener_vecinos, Func<Solucion, Solucion, int> calculo_coste, Func<Solucion, int>? calculo_heuristica = null)
+=======
+    public (Solucion?, int)? busqueda(List<(int, int)> solucion_inicial, Func<Solucion, bool> criterio_parada, Func<Solucion, List<(int, int)>> obtener_vecinos, Func<Solucion, Solucion, int> calculo_coste, Func<Solucion, int>? calculo_heuristica = null)
+>>>>>>> e070227b82df90a98e3fb11d883b336302b42045
     {
         ListaCandidatos candidatos = lista;
         candidatos.anhadir(new Solucion(solucion_inicial, 0));
@@ -49,7 +53,7 @@ public class AlgoritmoDeBusqueda
         }
 
         if (!finalizado)
-            return (null, revisados);
+            return null;
         return (solucion, revisados);
     }
 }

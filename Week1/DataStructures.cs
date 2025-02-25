@@ -70,14 +70,14 @@ public class ColaDePrioridad : ListaCandidatos
         string strSolucion = solucion.ToString();
         if (buscador.ContainsKey(strSolucion))
         {
-            var solucionBuscador = buscador[strSolucion];
+            (int, Solucion) solucionBuscador = buscador[strSolucion];
             if (solucionBuscador.Item1 <= prioridad)
             {
                 return;
             }
             borrar(solucion);
         }
-        var entrada = (prioridad, solucion);
+        (int, Solucion) entrada = (prioridad, solucion);
         buscador[strSolucion] = entrada;
         cp.Add(entrada);
         cp = cp.OrderBy(x => x.Item1).ToList();
@@ -86,7 +86,7 @@ public class ColaDePrioridad : ListaCandidatos
     public override void borrar(Solucion solucion)
     {
         string strSolucion = solucion.ToString();
-        if (buscador.TryGetValue(strSolucion, out var entrada))
+        if (buscador.TryGetValue(strSolucion, out (int, Solucion) entrada))
         {
             buscador.Remove(strSolucion);
             entrada.Item2.coste = int.MaxValue; // Use int.MaxValue to represent REMOVED
@@ -97,7 +97,7 @@ public class ColaDePrioridad : ListaCandidatos
     {
         while (cp.Count > 0)
         {
-            var (prioridad, solucion) = cp[0];
+            (int prioridad, Solucion solucion) = cp[0];
             cp.RemoveAt(0);
             if (solucion.coste != int.MaxValue)
             {
