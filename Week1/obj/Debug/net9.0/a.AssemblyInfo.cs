@@ -13,14 +13,9 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("a")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53c3c682e1232fb4912b0e647716c62f6a6a588a")]
-<<<<<<< HEAD:Week1/obj/Debug/net9.0/a.AssemblyInfo.cs
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5379c9e5e5403c10e53f576d27d36407b4b1ca04")]
 [assembly: System.Reflection.AssemblyProductAttribute("a")]
 [assembly: System.Reflection.AssemblyTitleAttribute("a")]
-=======
-[assembly: System.Reflection.AssemblyProductAttribute("Week1")]
-[assembly: System.Reflection.AssemblyTitleAttribute("Week1")]
->>>>>>> e070227b82df90a98e3fb11d883b336302b42045:Week1/obj/Debug/net9.0/Week1.AssemblyInfo.cs
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

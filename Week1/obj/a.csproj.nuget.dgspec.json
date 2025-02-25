@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD:Week1/obj/a.csproj.nuget.dgspec.json
     "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week1\\a.csproj": {}
   },
   "projects": {
@@ -13,19 +12,6 @@
         "projectPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week1\\a.csproj",
         "packagesPath": "C:\\Users\\fizga\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week1\\obj\\",
-=======
-    "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\Week1.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\Week1.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\Week1.csproj",
-        "projectName": "Week1",
-        "projectPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\Week1.csproj",
-        "packagesPath": "C:\\Users\\blanc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\obj\\",
->>>>>>> e070227b82df90a98e3fb11d883b336302b42045:Week1/obj/Week1.csproj.nuget.dgspec.json
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

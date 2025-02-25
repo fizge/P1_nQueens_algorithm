@@ -51,15 +51,8 @@ public class Program
         }
 
         AEstrella astar = new AEstrella();
-        var resultado = astar.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
-        if (resultado is (Solucion solucion, int revisados))
-        {
-            Console.WriteLine("Coordenadas:  " + solucion.ToString());
-            Console.WriteLine("Nodos evaluadas:  " + revisados);
-        }
-        else
-        {
-            Console.WriteLine("No se encontró una solución.");
-        }
+        (Solucion solucion, int revisados) = astar.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+        Console.WriteLine("Coordenadas:  " + solucion.ToString());
+        Console.WriteLine("Nodos evaluadas:  " + revisados);
     }
 }
