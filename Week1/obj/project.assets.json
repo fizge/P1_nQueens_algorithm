@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm-1\\Week1\\Week1.csproj",
+      "projectUniqueName": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\Week1.csproj",
       "projectName": "Week1",
-      "projectPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm-1\\Week1\\Week1.csproj",
+      "projectPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\Week1.csproj",
       "packagesPath": "C:\\Users\\blanc\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm-1\\Week1\\obj\\",
+      "outputPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
