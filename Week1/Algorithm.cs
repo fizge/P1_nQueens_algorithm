@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-
-
 public class AlgoritmoDeBusqueda
 {
     protected ListaCandidatos lista;
@@ -11,19 +7,19 @@ public class AlgoritmoDeBusqueda
         this.lista = lista;
     }
 
-    public virtual int calculo_de_prioridad(Solucion nodo_info, Func<Solucion, int> calculo_heuristica = null)
+    public virtual int calculo_de_prioridad(Solucion nodo_info, Func<Solucion, int>? calculo_heuristica = null)
     {
         return 0;
     }
 
-    public (Solucion, int) busqueda(List<(int, int)> solucion_inicial, Func<Solucion, bool> criterio_parada, Func<Solucion, List<(int, int)>> obtener_vecinos, Func<Solucion, Solucion, int> calculo_coste, Func<Solucion, int> calculo_heuristica = null)
+    public (Solucion, int) busqueda(List<(int, int)> solucion_inicial, Func<Solucion, bool> criterio_parada, Func<Solucion, List<(int, int)>> obtener_vecinos, Func<Solucion, Solucion, int> calculo_coste, Func<Solucion, int>? calculo_heuristica = null)
     {
         ListaCandidatos candidatos = lista;
         candidatos.anhadir(new Solucion(solucion_inicial, 0));
         Dictionary<string, int> vistos = new Dictionary<string, int>();
         bool finalizado = false;
         int revisados = 0;
-        Solucion solucion = null; // Inicializar solucion fuera del bucle while para poder acceder a ella después en el return de la función
+        Solucion? solucion = null; // Inicializar solucion fuera del bucle while para poder acceder a ella después en el return de la función
         while (candidatos.Count() > 0 && !finalizado)
         {
             solucion = candidatos.obtener_siguiente();
@@ -62,8 +58,12 @@ public class AEstrella : AlgoritmoDeBusqueda
 {
     public AEstrella() : base(new ColaDePrioridad()) { }
 
-    public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int> calculo_heuristica = null)
+    public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int>? calculo_heuristica = null)
     {
-        return solucion.coste + (calculo_heuristica != null ? calculo_heuristica(solucion) : 0);
+        if(calculo_heuristica==null)
+        {
+            return solucion.coste;
+        }
+        return solucion.coste + calculo_heuristica(solucion);
     }
 }

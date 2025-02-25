@@ -43,7 +43,7 @@ public class ListaCandidatos
     {
     }
 
-    public virtual Solucion obtener_siguiente()
+    public virtual Solucion? obtener_siguiente()
     {
         return null;
     }
