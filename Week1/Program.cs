@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-
+using System.Diagnostics;
 public class Program
 {
     public static void Main(string[] args)
@@ -50,8 +48,18 @@ public class Program
             return true;
         }
 
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.Start();
+
         AEstrella astar = new AEstrella();
         (Solucion solucion, int revisados) = astar.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+
+        // Detener el cronómetro
+        stopwatch.Stop();
+        
+        // Mostrar el tiempo transcurrido en milisegundos
+        Console.WriteLine($"Tiempo transcurrido: {stopwatch.ElapsedMilliseconds} ms");
+
         Console.WriteLine("Coordenadas:  " + solucion.ToString());
         Console.WriteLine("Nodos evaluadas:  " + revisados);
     }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 public class Solucion : IComparable<Solucion>
 {
     public List<(int, int)> coords;
@@ -56,13 +52,14 @@ public class ListaCandidatos
 
 public class ColaDePrioridad : ListaCandidatos
 {
-    private List<(int, Solucion)> cp;
-    private Dictionary<string, (int, Solucion)> buscador;
+    private PriorityQueue<Solucion, int> cp;
+    private Dictionary<string, int> buscador; // Almacenamos la prioridad actual para cada solución.
+    private const int REMOVED = int.MaxValue; // Marcador para elementos eliminados.
 
     public ColaDePrioridad()
     {
-        cp = new List<(int, Solucion)>();
-        buscador = new Dictionary<string, (int, Solucion)>();
+        cp = new PriorityQueue<Solucion, int>();
+        buscador = new Dictionary<string, int>();
     }
 
     public override void anhadir(Solucion solucion, int prioridad = 0)
@@ -70,26 +67,26 @@ public class ColaDePrioridad : ListaCandidatos
         string strSolucion = solucion.ToString();
         if (buscador.ContainsKey(strSolucion))
         {
-            var solucionBuscador = buscador[strSolucion];
-            if (solucionBuscador.Item1 <= prioridad)
+            int prioridadActual = buscador[strSolucion];
+            if (prioridadActual <= prioridad)
             {
                 return;
             }
             borrar(solucion);
         }
-        var entrada = (prioridad, solucion);
-        buscador[strSolucion] = entrada;
-        cp.Add(entrada);
-        cp = cp.OrderBy(x => x.Item1).ToList();
+        // Añadimos la solución con su prioridad.
+        buscador[strSolucion] = prioridad;
+        cp.Enqueue(solucion, prioridad);
     }
 
     public override void borrar(Solucion solucion)
     {
         string strSolucion = solucion.ToString();
-        if (buscador.TryGetValue(strSolucion, out var entrada))
+        if (buscador.ContainsKey(strSolucion))
         {
             buscador.Remove(strSolucion);
-            entrada.Item2.coste = int.MaxValue; // Use int.MaxValue to represent REMOVED
+            // Marcamos la solución como "eliminada" modificando su coste.
+            solucion.coste = REMOVED;
         }
     }
 
@@ -97,9 +94,9 @@ public class ColaDePrioridad : ListaCandidatos
     {
         while (cp.Count > 0)
         {
-            var (prioridad, solucion) = cp[0];
-            cp.RemoveAt(0);
-            if (solucion.coste != int.MaxValue)
+            Solucion solucion = cp.Dequeue();
+            // Si la solución aún es válida (no marcada como eliminada), se devuelve.
+            if (solucion.coste != REMOVED)
             {
                 buscador.Remove(solucion.ToString());
                 return solucion;
@@ -108,8 +105,5 @@ public class ColaDePrioridad : ListaCandidatos
         throw new InvalidOperationException("No hay siguiente en una cola de prioridad vacía");
     }
 
-    public override int Count() 
-    {
-        return buscador.Count;
-    }
+    public override int Count() => buscador.Count;
 }
