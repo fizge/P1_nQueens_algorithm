@@ -3,7 +3,7 @@
 /// Una solución se define como una lista de coordenadas, donde cada par (fila, columna)
 /// indica la posición de una reina en el tablero, y un coste asociado.
 /// </summary>
-public class Solucion : IComparable<Solucion>
+public class Solucion
 {
     public List<(int, int)> coords;
     public int coste;
@@ -90,9 +90,9 @@ public class ListaCandidatos
     /// Devuelve el número de soluciones en la lista de candidatos.
     /// </summary>
     /// <returns>Número de soluciones almacenadas.</returns>
-    public virtual int Count()
+    public virtual int? Count()
     {
-        return 0;
+        return null;
     }
 }
 
@@ -186,5 +186,5 @@ public class ColaDePrioridad : ListaCandidatos
     /// Devuelve el número de soluciones activas en la cola de prioridad.
     /// </summary>
     /// <returns>Número de soluciones.</returns>
-    public override int Count() => buscador.Count;
+    public override int? Count() => buscador.Count;
 }

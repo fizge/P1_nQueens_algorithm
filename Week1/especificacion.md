@@ -24,7 +24,7 @@ La traducción implicó adaptar la sintaxis, aprovechar el tipado fuerte de C# y
   - Uso de métodos especiales como `__init__`, `__eq__`, `__lt__` y `__str__` para inicialización, comparación y representación.
 - **C#:**  
   - Uso de constructores y sobrescritura de métodos como `Equals` y `ToString`.
-  - Implementación de `IComparable<T>` para definir el orden en estructuras como la cola de prioridad.
+  - Implementación de clases para definir el orden en estructuras como la cola de prioridad.
 
 ### Colecciones y Gestión de Datos
 - **Python:**  

@@ -6,7 +6,7 @@
 public class AlgoritmoDeBusqueda
 {
     // Lista de candidatos (estados parciales) a explorar.
-    protected ListaCandidatos lista;
+    public ListaCandidatos lista;
 
     /// <summary>
     /// Inicializa una nueva instancia de la clase AlgoritmoDeBusqueda.

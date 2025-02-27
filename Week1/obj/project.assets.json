@@ -8,23 +8,23 @@
     "net9.0": []
   },
   "packageFolders": {
-    "C:\\Users\\fizga\\.nuget\\packages\\": {},
+    "C:\\Users\\blanc\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week1\\a.csproj",
+      "projectUniqueName": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\a.csproj",
       "projectName": "a",
-      "projectPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week1\\a.csproj",
-      "packagesPath": "C:\\Users\\fizga\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week1\\obj\\",
+      "projectPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\a.csproj",
+      "packagesPath": "C:\\Users\\blanc\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\fizga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\blanc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
       ],
       "originalTargetFrameworks": [
