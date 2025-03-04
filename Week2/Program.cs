@@ -7,7 +7,7 @@ public class Program
         // Estado inicial: lista vacía, sin ninguna reina colocada.
         List<(int, int)> solucion_inicial = new List<(int, int)>();
         // Número de reinas a colocar (tamaño del tablero).
-        int reinas = 5;
+        int reinas = 4;
 
         /// <summary>
         /// Calcula el coste entre dos soluciones.
