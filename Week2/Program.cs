@@ -7,7 +7,7 @@ public class Program
         // Estado inicial: lista vacía, sin ninguna reina colocada.
         List<(int, int)> solucion_inicial = new List<(int, int)>();
         // Número de reinas a colocar (tamaño del tablero).
-        int reinas = 15;
+        int reinas = 6;
 
         /// <summary>
         /// Calcula el coste entre dos soluciones.
@@ -49,32 +49,14 @@ public class Program
                 for (int j = 0; j < reinas; j++)
                 {
                     (int, int) nuevo_nodo = (row + 1, j);
-                    if (es_prometedor(solucion, nuevo_nodo))
-                    {
-                        vecinos.Add(nuevo_nodo); // Añade la posición (siguiente fila, columna j)
-                    }
+                    
+                    vecinos.Add(nuevo_nodo); // Añade la posición (siguiente fila, columna j)
+                    
                 }
             }
             return vecinos;
         }
 
-        /// <summary>
-        /// Verifica si la colocación de una nueva reina es prometedora (sin conflictos).
-        /// </summary>
-        /// <param name="solucion">Solución actual.</param>
-        /// <param name="nuevo_nodo">Nueva coordenada de la reina a colocar.</param>
-        /// <returns>True si es prometedor; de lo contrario, false.</returns>
-        bool es_prometedor(Solucion solucion, (int, int) nuevo_nodo)
-        {
-            foreach ((int, int) nodo in solucion.coords)
-            {
-                if (nodo.Item2 == nuevo_nodo.Item2 || Math.Abs(nodo.Item2 - nuevo_nodo.Item2) == Math.Abs(nodo.Item1 - nuevo_nodo.Item1))
-                {
-                    return false; // Conflicto en la misma columna o diagonal
-                }
-            }
-            return true;
-        }
 
         /// <summary>
         /// Verifica si una solución cumple con el criterio de parada.
@@ -145,5 +127,27 @@ public class Program
 
         Console.WriteLine("Coordenadas:  " + solucionProf.ToString());
         Console.WriteLine("Nodos evaluados:  " + revisadosProf);
+
+
+
+
+        //Búsqueda por anchura
+        Console.WriteLine("\n\nBúsqueda por anchura:");
+
+        // Se inicia el cronómetro para medir el tiempo de ejecución
+        Stopwatch stopwatchAnc = new Stopwatch();
+        stopwatchAnc.Start();
+
+        // Se crea una instancia del algoritmo de búsqueda por anchura 
+        AEstrella aestrella = new AEstrella();
+        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
+        (Solucion solucionAnc, int revisadosAnc) = aestrella.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+
+        stopwatchAnch.Stop();
+        // Mostrar el tiempo de ejecución
+        Console.WriteLine($"Tiempo transcurrido: {stopwatchAnc.ElapsedMilliseconds} ms");
+
+        Console.WriteLine("Coordenadas:  " + solucionAnc.ToString());
+        Console.WriteLine("Nodos evaluados:  " + revisadosAnc);
     }
 }

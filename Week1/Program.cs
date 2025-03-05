@@ -49,10 +49,9 @@ public class Program
                 for (int j = 0; j < reinas; j++)
                 {
                     (int, int) nuevo_nodo = (row + 1, j);
-                    if (es_prometedor(solucion, nuevo_nodo))
-                    {
-                        vecinos.Add(nuevo_nodo); // Añade la posición (siguiente fila, columna j)
-                    }
+                 
+                    vecinos.Add(nuevo_nodo); // Añade la posición (siguiente fila, columna j)
+                  
                 }
             }
             return vecinos;
@@ -64,18 +63,7 @@ public class Program
         /// <param name="solucion">Solución actual.</param>
         /// <param name="nuevo_nodo">Nueva coordenada de la reina a colocar.</param>
         /// <returns>True si es prometedor; de lo contrario, false.</returns>
-        bool es_prometedor(Solucion solucion, (int, int) nuevo_nodo)
-        {
-            foreach ((int, int) nodo in solucion.coords)
-            {
-                if (nodo.Item2 == nuevo_nodo.Item2 || Math.Abs(nodo.Item2 - nuevo_nodo.Item2) == Math.Abs(nodo.Item1 - nuevo_nodo.Item1))
-                {
-                    return false; // Conflicto en la misma columna o diagonal
-                }
-            }
-            return true;
-        }
-
+   
         /// <summary>
         /// Verifica si una solución cumple con el criterio de parada.
         /// El algoritmo finaliza cuando:
