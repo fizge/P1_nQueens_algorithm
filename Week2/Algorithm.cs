@@ -128,3 +128,49 @@ public class AEstrella : AlgoritmoDeBusqueda
         return solucion.coste + calculo_heuristica(solucion);
     }
 }
+
+/// <summary>
+/// Implementa el algoritmo de búsqueda por anchura (Breadth-First Search) para la búsqueda de soluciones.
+/// Utiliza una cola para explorar primero los nodos en el orden en que fueron añadidos.
+/// </summary>
+public class BusquedaAnchura : AlgoritmoDeBusqueda
+{
+    /// <summary>
+    /// Inicializa una nueva instancia de BreadthFirstSearch, utilizando una cola como estructura de candidatos.
+    /// </summary>
+    public BusquedaAnchura() : base(new ColaDePrioridad()) { }
+
+    /// <summary>
+    /// Calcula la prioridad de una solución. En la búsqueda por anchura, la prioridad no se utiliza.
+    /// </summary>
+    /// <param name="solucion">La solución actual.</param>
+    /// <param name="calculo_heuristica">Función opcional para calcular la heurística.</param>
+    /// <returns>Prioridad calculada (siempre 0 en este caso).</returns>
+    public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int>? calculo_heuristica = null)
+    {
+        return 0;
+    }
+}
+
+/// <summary>
+/// Implementa el algoritmo de búsqueda en profundidad (Depth-First Search) para la búsqueda de soluciones.
+/// Utiliza una pila para explorar primero los nodos más profundos.
+/// </summary>
+public class BusquedaProfundidad : AlgoritmoDeBusqueda
+{
+    /// <summary>
+    /// Inicializa una nueva instancia de BusquedaProfundidad, utilizando una pila como estructura de candidatos.
+    /// </summary>
+    public BusquedaProfundidad() : base(new Pila()) { }
+
+    /// <summary>
+    /// Calcula la prioridad de una solución. En la búsqueda en profundidad, la prioridad no se utiliza.
+    /// </summary>
+    /// <param name="solucion">La solución actual.</param>
+    /// <param name="calculo_heuristica">Función opcional para calcular la heurística.</param>
+    /// <returns>Prioridad calculada (siempre 0 en este caso).</returns>
+    public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int>? calculo_heuristica = null)
+    {
+        return 0;
+    }
+}

@@ -188,3 +188,61 @@ public class ColaDePrioridad : ListaCandidatos
     /// <returns>Número de soluciones.</returns>
     public override int? Count() => buscador.Count;
 }
+
+/// <summary>
+/// Implementa una pila para gestionar la lista de candidatos en la búsqueda en profundidad.
+/// </summary>
+public class Pila : ListaCandidatos
+{
+    // Pila que almacena las soluciones.
+    private Stack<Solucion> pila;
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase Pila.
+    /// </summary>
+    public Pila()
+    {
+        pila = new Stack<Solucion>();
+    }
+
+    /// <summary>
+    /// Añade una solución a la pila.
+    /// </summary>
+    /// <param name="solucion">Solución a añadir.</param>
+    /// <param name="prioridad">Prioridad de la solución (no se utiliza en este caso).</param>
+    public override void anhadir(Solucion solucion, int prioridad = 0)
+    {
+        pila.Push(solucion);
+    }
+
+    /// <summary>
+    /// Borra una solución de la pila.
+    /// </summary>
+    /// <param name="solucion">Solución a borrar.</param>
+    public override void borrar(Solucion solucion)
+    {
+        // No se implementa borrado en una pila simple.
+    }
+
+    /// <summary>
+    /// Obtiene la siguiente solución a explorar de la pila.
+    /// </summary>
+    /// <returns>La siguiente solución o null si no hay candidatos.</returns>
+    public override Solucion? obtener_siguiente()
+    {
+        if (pila.Count > 0)
+        {
+            return pila.Pop();
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Devuelve el número de soluciones en la pila.
+    /// </summary>
+    /// <returns>Número de soluciones almacenadas.</returns>
+    public override int? Count()
+    {
+        return pila.Count;
+    }
+}
