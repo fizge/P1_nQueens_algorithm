@@ -27,7 +27,7 @@ Este enfoque garantiza un comportamiento correcto y predecible, ya que las estru
 En este segundo enfoque, en lugar de utilizar `BusquedaAnchura` y `BusquedaProfundidad`, se mantiene el uso de una **cola de prioridad** y se modifican las funciones `calculo_coste` y `calculo_heuristica` para inducir un comportamiento similar al de una cola o una pila:
 
 - **Para imitar la búsqueda en profundidad**, `calculo_coste` retorna `-1`. Esto hace que cada nuevo nodo insertado tenga menor prioridad que su predecesor, provocando que la cola de prioridad lo extraiga antes que los nodos previamente insertados, imitando una pila.
-- **Para imitar la búsqueda en anchura**, `calculo_coste` retorna `0`. En este caso, todos los nodos tienen la misma prioridad, por lo que la cola de prioridad los extrae en orden de inserción, imitando una cola FIFO.
+- **Para imitar la búsqueda en anchura**, `calculo_coste` retorna `1`. En este caso, todos los nodos tienen la misma prioridad, por lo que la cola de prioridad los extrae en orden de inserción, imitando una cola FIFO.
 
 Si bien esta solución puede aproximarse a los comportamientos de BFS y DFS, el uso de una **cola de prioridad basada en montículo** introduce una variabilidad en el orden de extracción, lo que impide una correspondencia exacta con los algoritmos tradicionales de búsqueda en anchura y profundidad.
 
