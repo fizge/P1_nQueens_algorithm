@@ -115,35 +115,85 @@ public class Program
             return true;
         }
 
-
-        int revisadosAstar = 0;
-
+        // Listas para almacenar el número de nodos evaluados en cada búsqueda
         List<int> lista_evaluadosAstar = new List<int>();
+        List<int> lista_evaluadosUCS = new List<int>();
+        List<int> lista_evaluadosAvara = new List<int>();
 
+        // Número de nodos evaluados en cada algoritmo
+        int revisadosAstar = 0;
+        int revisadosUCS = 0;
+        int revisadosAvara = 0;
+
+        // BÚSQUEDA A*
         while (revisadosAstar < 5500)
         {
-            //Búsqueda por anchura
             Console.WriteLine("\n\nBúsqueda por A*:");
 
-            // Se inicia el cronómetro para medir el tiempo de ejecución
             Stopwatch stopwatchAstar = new Stopwatch();
             stopwatchAstar.Start();
 
-            // Se crea una instancia del algoritmo de búsqueda por A*
             AEstrella aestrella = new AEstrella();
-            // Se inicia la búsqueda a partir del estado inicial (solución vacía)
             (Solucion solucionAstar, revisadosAstar) = aestrella.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
 
             stopwatchAstar.Stop();
-            // Mostrar el tiempo de ejecución
+
             Console.WriteLine($"Tiempo transcurrido: {stopwatchAstar.ElapsedMilliseconds} ms");
-
-            reinas++;
-            lista_evaluadosAstar.Add(revisadosAstar);
-
             Console.WriteLine("Coordenadas:  " + solucionAstar.ToString());
             Console.WriteLine("Nodos evaluados:  " + revisadosAstar);
+
+            lista_evaluadosAstar.Add(revisadosAstar);
+            reinas++;
         }
-        Console.WriteLine(string.Join(", ", lista_evaluadosAstar));
+
+        // BÚSQUEDA POR COSTE UNIFORME
+        reinas = 4;  // Restablecemos el número de reinas
+        while (revisadosUCS < 5500)
+        {
+            Console.WriteLine("\n\nBúsqueda por Coste Uniforme:");
+
+            Stopwatch stopwatchUCS = new Stopwatch();
+            stopwatchUCS.Start();
+
+            CosteUniforme costeUniforme = new CosteUniforme();
+            (Solucion solucionUCS, revisadosUCS) = costeUniforme.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+
+            stopwatchUCS.Stop();
+
+            Console.WriteLine($"Tiempo transcurrido: {stopwatchUCS.ElapsedMilliseconds} ms");
+            Console.WriteLine("Coordenadas:  " + solucionUCS.ToString());
+            Console.WriteLine("Nodos evaluados:  " + revisadosUCS);
+
+            lista_evaluadosUCS.Add(revisadosUCS);
+            reinas++;
+        }
+
+        // BÚSQUEDA AVARA
+        reinas = 4;  // Restablecemos el número de reinas
+        while (revisadosAvara < 5500)
+        {
+            Console.WriteLine("\n\nBúsqueda Avara:");
+
+            Stopwatch stopwatchAvara = new Stopwatch();
+            stopwatchAvara.Start();
+
+            BusquedaAvara busquedaAvara = new BusquedaAvara();
+            (Solucion solucionAvara, revisadosAvara) = busquedaAvara.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+
+            stopwatchAvara.Stop();
+
+            Console.WriteLine($"Tiempo transcurrido: {stopwatchAvara.ElapsedMilliseconds} ms");
+            Console.WriteLine("Coordenadas:  " + solucionAvara.ToString());
+            Console.WriteLine("Nodos evaluados:  " + revisadosAvara);
+
+            lista_evaluadosAvara.Add(revisadosAvara);
+            reinas++;
+        }
+
+        // Imprimir los resultados finales
+        Console.WriteLine("\nResultados:");
+        Console.WriteLine("A*: " + string.Join(", ", lista_evaluadosAstar));
+        Console.WriteLine("Coste Uniforme: " + string.Join(", ", lista_evaluadosUCS));
+        Console.WriteLine("Búsqueda Avara: " + string.Join(", ", lista_evaluadosAvara));
     }
 }

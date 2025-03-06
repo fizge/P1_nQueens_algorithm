@@ -130,47 +130,52 @@ public class AEstrella : AlgoritmoDeBusqueda
 }
 
 /// <summary>
-/// Implementa el algoritmo de búsqueda por anchura (Breadth-First Search) para la búsqueda de soluciones.
-/// Utiliza una cola para explorar primero los nodos en el orden en que fueron añadidos.
+/// Implementa el algoritmo de búsqueda de Coste Uniforme (Uniform Cost Search - UCS).
+/// Este algoritmo expande primero los nodos con menor coste acumulado, ignorando la heurística.
+/// Siempre encuentra la solución óptima, pero puede evaluar muchos nodos innecesarios.
 /// </summary>
-public class BusquedaAnchura : AlgoritmoDeBusqueda
+public class CosteUniforme : AlgoritmoDeBusqueda
 {
     /// <summary>
-    /// Inicializa una nueva instancia de BreadthFirstSearch, utilizando una cola como estructura de candidatos.
+    /// Inicializa una nueva instancia de CosteUniforme, utilizando una cola de prioridad como estructura de candidatos.
     /// </summary>
-    public BusquedaAnchura() : base(new Cola()) { }
+    public CosteUniforme() : base(new ColaDePrioridad()) { }
 
     /// <summary>
-    /// Calcula la prioridad de una solución. En la búsqueda por anchura, la prioridad no se utiliza.
+    /// Calcula la prioridad de una solución en la búsqueda de Coste Uniforme.
+    /// La prioridad se basa exclusivamente en el coste acumulado desde el estado inicial hasta el nodo actual.
+    /// No se usa heurística en este caso.
     /// </summary>
-    /// <param name="solucion">La solución actual.</param>
-    /// <param name="calculo_heuristica">Función opcional para calcular la heurística.</param>
-    /// <returns>Prioridad calculada (siempre 0 en este caso).</returns>
+    /// <param name="solucion">La solución actual en el árbol de búsqueda.</param>
+    /// <param name="calculo_heuristica">Función opcional para calcular la heurística (no utilizada en Coste Uniforme).</param>
+    /// <returns>El coste acumulado de la solución actual.</returns>
     public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int>? calculo_heuristica = null)
     {
-        return 0;
+        return solucion.coste; // Solo usa el coste acumulado, sin heurística.
     }
 }
 
 /// <summary>
-/// Implementa el algoritmo de búsqueda en profundidad (Depth-First Search) para la búsqueda de soluciones.
-/// Utiliza una pila para explorar primero los nodos más profundos.
+/// Implementa el algoritmo de búsqueda Avara (Greedy Best-First Search - GBFS).
+/// Este algoritmo expande primero los nodos que parecen más prometedores según la heurística,
+/// sin considerar el coste acumulado. Puede ser más rápido que A*, pero no garantiza soluciones óptimas.
 /// </summary>
-public class BusquedaProfundidad : AlgoritmoDeBusqueda
+public class BusquedaAvara : AlgoritmoDeBusqueda
 {
     /// <summary>
-    /// Inicializa una nueva instancia de BusquedaProfundidad, utilizando una pila como estructura de candidatos.
+    /// Inicializa una nueva instancia de BusquedaAvara, utilizando una cola de prioridad como estructura de candidatos.
     /// </summary>
-    public BusquedaProfundidad() : base(new Pila()) { }
+    public BusquedaAvara() : base(new ColaDePrioridad()) { }
 
     /// <summary>
-    /// Calcula la prioridad de una solución. En la búsqueda en profundidad, la prioridad no se utiliza.
+    /// Calcula la prioridad de una solución en la búsqueda Avara.
+    /// La prioridad se basa únicamente en la heurística estimada, sin considerar el coste acumulado.
     /// </summary>
-    /// <param name="solucion">La solución actual.</param>
-    /// <param name="calculo_heuristica">Función opcional para calcular la heurística.</param>
-    /// <returns>Prioridad calculada (siempre 0 en este caso).</returns>
+    /// <param name="solucion">La solución actual en el árbol de búsqueda.</param>
+    /// <param name="calculo_heuristica">Función para calcular la heurística de la solución.</param>
+    /// <returns>El valor heurístico de la solución actual. Si no hay heurística, devuelve 0.</returns>
     public override int calculo_de_prioridad(Solucion solucion, Func<Solucion, int>? calculo_heuristica = null)
     {
-        return 0;
+        return calculo_heuristica != null ? calculo_heuristica(solucion) : 0; // Solo usa heurística
     }
 }
