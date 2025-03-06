@@ -7,7 +7,7 @@ public class Program
         // Estado inicial: lista vacía, sin ninguna reina colocada.
         List<(int, int)> solucion_inicial = new List<(int, int)>();
         // Número de reinas a colocar (tamaño del tablero).
-        int reinas = 15;
+        int reinas = 4;
 
         /// <summary>
         /// Calcula el coste entre dos soluciones.
@@ -44,21 +44,30 @@ public class Program
         int calculo_heuristica(Solucion solucion)
         {
             int conflictos = 0;
-            foreach (var reina in solucion.coords)
+            int n = solucion.coords.Count;
+
+            // Comparar cada reina solo con las siguientes para evitar duplicaciones
+            for (int i = 0; i < n - 1; i++)
             {
-                foreach (var otra_reina in solucion.coords)
+                for (int j = i + 1; j < n; j++)
                 {
-                    if (reina != otra_reina)
+                    (int fila1, int col1) = solucion.coords[i];
+                    (int fila2, int col2) = solucion.coords[j];
+
+                    if (col1 == col2 || // Mismo columna
+                        Math.Abs(fila1 - fila2) == Math.Abs(col1 - col2)) // Diagonal
                     {
-                        if (reina.Item2 == otra_reina.Item2 || Math.Abs(reina.Item1 - otra_reina.Item1) == Math.Abs(reina.Item2 - otra_reina.Item2))
-                        {
-                            conflictos++;
-                        }
+                        conflictos++;
                     }
                 }
             }
-            return conflictos;
+
+            // Número de reinas restantes por colocar (influye en la estimación futura)
+            int reinas_restantes = reinas - solucion.coords.Count;
+
+            return conflictos + reinas_restantes; // Combina conflictos actuales con lo que falta por colocar
         }
+
 
         /// <summary>
         /// Obtiene los vecinos de una solución.
@@ -157,25 +166,34 @@ public class Program
         Console.WriteLine("Nodos evaluados:  " + revisadosProf);
         */
 
+        int revisadosAstar = 0;
 
+        List<int> lista_evaluadosAstar = new List<int>();
 
-        //Búsqueda por anchura
-        Console.WriteLine("\n\nBúsqueda por A*:");
+        while (revisadosAstar < 1500)
+        {
+            //Búsqueda por anchura
+            Console.WriteLine("\n\nBúsqueda por A*:");
 
-        // Se inicia el cronómetro para medir el tiempo de ejecución
-        Stopwatch stopwatchAstar = new Stopwatch();
-        stopwatchAstar.Start();
+            // Se inicia el cronómetro para medir el tiempo de ejecución
+            Stopwatch stopwatchAstar = new Stopwatch();
+            stopwatchAstar.Start();
 
-        // Se crea una instancia del algoritmo de búsqueda por A*
-        AEstrella aestrella = new AEstrella();
-        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
-        (Solucion solucionAstar, int revisadosAstar) = aestrella.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+            // Se crea una instancia del algoritmo de búsqueda por A*
+            AEstrella aestrella = new AEstrella();
+            // Se inicia la búsqueda a partir del estado inicial (solución vacía)
+            (Solucion solucionAstar, revisadosAstar) = aestrella.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
 
-        stopwatchAstar.Stop();
-        // Mostrar el tiempo de ejecución
-        Console.WriteLine($"Tiempo transcurrido: {stopwatchAstar.ElapsedMilliseconds} ms");
+            stopwatchAstar.Stop();
+            // Mostrar el tiempo de ejecución
+            Console.WriteLine($"Tiempo transcurrido: {stopwatchAstar.ElapsedMilliseconds} ms");
 
-        Console.WriteLine("Coordenadas:  " + solucionAstar.ToString());
-        Console.WriteLine("Nodos evaluados:  " + revisadosAstar);
+            reinas++;
+            lista_evaluadosAstar.Add(revisadosAstar);
+
+            Console.WriteLine("Coordenadas:  " + solucionAstar.ToString());
+            Console.WriteLine("Nodos evaluados:  " + revisadosAstar);
+        }
+        Console.WriteLine(string.Join(", ", lista_evaluadosAstar));
     }
 }
