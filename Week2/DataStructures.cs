@@ -246,3 +246,63 @@ public class Pila : ListaCandidatos
         return pila.Count;
     }
 }
+
+
+/// <summary>
+/// Implementa una cola simple (FIFO) para gestionar la lista de candidatos.
+/// </summary>
+public class Cola : ListaCandidatos
+{
+    // Cola que almacena las soluciones.
+    private Queue<Solucion> cola;
+
+    /// <summary>
+    /// Inicializa una nueva instancia de la clase Cola.
+    /// </summary>
+    public Cola()
+    {
+        cola = new Queue<Solucion>();
+    }
+
+    /// <summary>
+    /// Añade una solución a la cola.
+    /// </summary>
+    /// <param name="solucion">Solución a añadir.</param>
+    /// <param name="prioridad">Prioridad de la solución (no se utiliza en este caso).</param>
+    public override void anhadir(Solucion solucion, int prioridad = 0)
+    {
+        cola.Enqueue(solucion);
+    }
+
+    /// <summary>
+    /// Borra una solución de la cola.
+    /// </summary>
+    /// <param name="solucion">Solución a borrar.</param>
+    public override void borrar(Solucion solucion)
+    {
+        // No se implementa borrado en una cola simple.
+    }
+
+    /// <summary>
+    /// Obtiene la siguiente solución a explorar de la cola.
+    /// </summary>
+    /// <returns>La siguiente solución o null si no hay candidatos.</returns>
+    public override Solucion? obtener_siguiente()
+    {
+        if (cola.Count > 0)
+        {
+            return cola.Dequeue();
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Devuelve el número de soluciones en la cola.
+    /// </summary>
+    /// <returns>Número de soluciones almacenadas.</returns>
+    public override int? Count()
+    {
+        return cola.Count;
+    }
+
+}

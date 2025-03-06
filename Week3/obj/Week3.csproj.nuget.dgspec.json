@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week3\\Week3.csproj": {}
+    "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week3\\Week3.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week3\\Week3.csproj": {
+    "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week3\\Week3.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week3\\Week3.csproj",
+        "projectUniqueName": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week3\\Week3.csproj",
         "projectName": "Week3",
-        "projectPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week3\\Week3.csproj",
-        "packagesPath": "C:\\Users\\fizga\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fizga\\Desktop\\ABIA\\P1_nQueens_algorithm\\week3\\obj\\",
+        "projectPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week3\\Week3.csproj",
+        "packagesPath": "C:\\Users\\blanc\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\blanc\\OneDrive\\Escritorio\\School\\IA_2_2024-2025\\Cuatrimestre_4\\ABIA\\Prácticas\\P1_nQueens_algorithm\\Week3\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\fizga\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\blanc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config"
         ],
         "originalTargetFrameworks": [
