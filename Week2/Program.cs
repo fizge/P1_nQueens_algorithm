@@ -7,7 +7,7 @@ public class Program
         // Estado inicial: lista vacía, sin ninguna reina colocada.
         List<(int, int)> solucion_inicial = new List<(int, int)>();
         // Número de reinas a colocar (tamaño del tablero).
-        int reinas = 6;
+        int reinas = 4;
 
         /// <summary>
         /// Calcula el coste entre dos soluciones.
@@ -87,67 +87,66 @@ public class Program
             return true;
         }
 
+        int revisadosAnch = 0;
+        int revisadosProf = 0;
 
-        //Búsqueda por anchura
-        Console.WriteLine("\n\nBúsqueda por anchura:");
+        List<int> lista_evaluadosAnch = new List<int>();
+        List<int> lista_evaluadosProf = new List<int>();
 
-        // Se inicia el cronómetro para medir el tiempo de ejecución
-        Stopwatch stopwatchAnch = new Stopwatch();
-        stopwatchAnch.Start();
+        while (revisadosAnch < 1500)
+        {
+            Console.WriteLine("\n\nBúsqueda por anchura:");
 
-        // Se crea una instancia del algoritmo de búsqueda por anchura 
-        BusquedaAnchura bAnchura = new BusquedaAnchura();
-        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
-        (Solucion solucionAnch, int revisadosAnch) = bAnchura.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
+            Stopwatch stopwatchAnch = new Stopwatch();
+            stopwatchAnch.Start();
 
-        stopwatchAnch.Stop();
-        // Mostrar el tiempo de ejecución
-        Console.WriteLine($"Tiempo transcurrido: {stopwatchAnch.ElapsedMilliseconds} ms");
+            BusquedaAnchura bAnchura = new BusquedaAnchura();
+            (Solucion solucionAnch, int nodosEvaluados) = bAnchura.busqueda(
+                solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica
+            );
 
-        Console.WriteLine("Coordenadas:  " + solucionAnch.ToString());
-        Console.WriteLine("Nodos evaluados:  " + revisadosAnch);
+            stopwatchAnch.Stop();
+
+            Console.WriteLine($"Tiempo transcurrido: {stopwatchAnch.ElapsedMilliseconds} ms");
+            Console.WriteLine("Coordenadas:  " + solucionAnch.ToString());
+            Console.WriteLine("Nodos evaluados:  " + nodosEvaluados);
+
+            revisadosAnch = nodosEvaluados; // Actualizar la variable para la condición del while
+            reinas++;
+            lista_evaluadosAnch.Add(nodosEvaluados);
+        }
+
+        reinas = 4; // Resetear para la búsqueda en profundidad
+        while (revisadosProf < 1500)
+        {
+            Console.WriteLine("\n\nBúsqueda en profundidad:");
+
+            Stopwatch stopwatchProf = new Stopwatch();
+            stopwatchProf.Start();
+
+            BusquedaProfundidad bProfundidad = new BusquedaProfundidad();
+            (Solucion solucionProf, int nodosEvaluados) = bProfundidad.busqueda(
+                solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica
+            );
+
+            stopwatchProf.Stop();
+
+            Console.WriteLine($"Tiempo transcurrido: {stopwatchProf.ElapsedMilliseconds} ms");
+            Console.WriteLine("Coordenadas:  " + solucionProf.ToString());
+            Console.WriteLine("Nodos evaluados:  " + nodosEvaluados);
+
+            revisadosProf = nodosEvaluados; // Actualizar la variable para la condición del while
+            reinas++;
+            lista_evaluadosProf.Add(nodosEvaluados);
+        }
+
+        Console.WriteLine("\nResultados BFS:");
+        Console.WriteLine(string.Join(", ", lista_evaluadosAnch));
+
+        Console.WriteLine("\nResultados DFS:");
+        Console.WriteLine(string.Join(", ", lista_evaluadosProf));
 
 
-
-        //Búsqueda en profundidad
-        Console.WriteLine("\n\nBúsqueda en profundidad:");
-
-        // Se inicia el cronómetro para medir el tiempo de ejecución
-        Stopwatch stopwatchProf = new Stopwatch();
-        stopwatchProf.Start();
-
-        // Se crea una instancia del algoritmo de búsqueda en profundidad
-        BusquedaProfundidad bProfundidad = new BusquedaProfundidad();
-        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
-        (Solucion solucionProf, int revisadosProf) = bProfundidad.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
-
-        stopwatchProf.Stop();
-        // Mostrar el tiempo de ejecución
-        Console.WriteLine($"Tiempo transcurrido: {stopwatchProf.ElapsedMilliseconds} ms");
-
-        Console.WriteLine("Coordenadas:  " + solucionProf.ToString());
-        Console.WriteLine("Nodos evaluados:  " + revisadosProf);
-
-
-
-
-        //Búsqueda por anchura
-        Console.WriteLine("\n\nBúsqueda por anchura:");
-
-        // Se inicia el cronómetro para medir el tiempo de ejecución
-        Stopwatch stopwatchAnc = new Stopwatch();
-        stopwatchAnc.Start();
-
-        // Se crea una instancia del algoritmo de búsqueda por anchura 
-        AEstrella aestrella = new AEstrella();
-        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
-        (Solucion solucionAnc, int revisadosAnc) = aestrella.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
-
-        stopwatchAnch.Stop();
-        // Mostrar el tiempo de ejecución
-        Console.WriteLine($"Tiempo transcurrido: {stopwatchAnc.ElapsedMilliseconds} ms");
-
-        Console.WriteLine("Coordenadas:  " + solucionAnc.ToString());
-        Console.WriteLine("Nodos evaluados:  " + revisadosAnc);
     }
+
 }
