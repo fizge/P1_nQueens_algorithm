@@ -138,7 +138,7 @@ public class BusquedaAnchura : AlgoritmoDeBusqueda
     /// <summary>
     /// Inicializa una nueva instancia de BreadthFirstSearch, utilizando una cola como estructura de candidatos.
     /// </summary>
-    public BusquedaAnchura() : base(new ColaDePrioridad()) { }
+    public BusquedaAnchura() : base(new Cola()) { }
 
     /// <summary>
     /// Calcula la prioridad de una solución. En la búsqueda por anchura, la prioridad no se utiliza.
