@@ -44,30 +44,21 @@ public class Program
         int calculo_heuristica(Solucion solucion)
         {
             int conflictos = 0;
-            int n = solucion.coords.Count;
-
-            // Comparar cada reina solo con las siguientes para evitar duplicaciones
-            for (int i = 0; i < n - 1; i++)
+            foreach (var reina in solucion.coords)
             {
-                for (int j = i + 1; j < n; j++)
+                foreach (var otra_reina in solucion.coords)
                 {
-                    (int fila1, int col1) = solucion.coords[i];
-                    (int fila2, int col2) = solucion.coords[j];
-
-                    if (col1 == col2 || // Mismo columna
-                        Math.Abs(fila1 - fila2) == Math.Abs(col1 - col2)) // Diagonal
+                    if (reina != otra_reina)
                     {
-                        conflictos++;
+                        if (reina.Item2 == otra_reina.Item2 || Math.Abs(reina.Item1 - otra_reina.Item1) == Math.Abs(reina.Item2 - otra_reina.Item2))
+                        {
+                            conflictos++;
+                        }
                     }
                 }
             }
-
-            // Número de reinas restantes por colocar (influye en la estimación futura)
-            int reinas_restantes = reinas - solucion.coords.Count;
-
-            return conflictos + reinas_restantes; // Combina conflictos actuales con lo que falta por colocar
+            return conflictos;
         }
-
 
         /// <summary>
         /// Obtiene los vecinos de una solución.
@@ -124,53 +115,12 @@ public class Program
             return true;
         }
 
-        /*
-        //Búsqueda por anchura
-        Console.WriteLine("\n\nBúsqueda por anchura:");
-
-        // Se inicia el cronómetro para medir el tiempo de ejecución
-        Stopwatch stopwatchAnch = new Stopwatch();
-        stopwatchAnch.Start();
-
-        // Se crea una instancia del algoritmo de búsqueda por anchura 
-        BusquedaAnchura bAnchura = new BusquedaAnchura();
-        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
-        (Solucion solucionAnch, int revisadosAnch) = bAnchura.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
-
-        stopwatchAnch.Stop();
-        // Mostrar el tiempo de ejecución
-        Console.WriteLine($"Tiempo transcurrido: {stopwatchAnch.ElapsedMilliseconds} ms");
-
-        Console.WriteLine("Coordenadas:  " + solucionAnch.ToString());
-        Console.WriteLine("Nodos evaluados:  " + revisadosAnch);
-
-
-        
-        //Búsqueda en profundidad
-        Console.WriteLine("\n\nBúsqueda en profundidad:");
-
-        // Se inicia el cronómetro para medir el tiempo de ejecución
-        Stopwatch stopwatchProf = new Stopwatch();
-        stopwatchProf.Start();
-
-        // Se crea una instancia del algoritmo de búsqueda en profundidad
-        BusquedaProfundidad bProfundidad = new BusquedaProfundidad();
-        // Se inicia la búsqueda a partir del estado inicial (solución vacía)
-        (Solucion solucionProf, int revisadosProf) = bProfundidad.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
-
-        stopwatchProf.Stop();
-        // Mostrar el tiempo de ejecución
-        Console.WriteLine($"Tiempo transcurrido: {stopwatchProf.ElapsedMilliseconds} ms");
-
-        Console.WriteLine("Coordenadas:  " + solucionProf.ToString());
-        Console.WriteLine("Nodos evaluados:  " + revisadosProf);
-        */
 
         int revisadosAstar = 0;
 
         List<int> lista_evaluadosAstar = new List<int>();
 
-        while (revisadosAstar < 1500)
+        while (revisadosAstar < 5500)
         {
             //Búsqueda por anchura
             Console.WriteLine("\n\nBúsqueda por A*:");
