@@ -18,21 +18,19 @@ public class Program
         /// <returns>Coste (número de conflictos).</returns>
         int calculo_coste(Solucion solucion, Solucion nueva_solucion)
         {
-            int conflictos = 0;
-            foreach (var reina in nueva_solucion.coords)
+            // Solo comparo la última reina agregada con las anteriores
+            (int,int) nueva_reina = nueva_solucion.coords[^1]; // Última reina agregada
+            foreach ((int,int) otra_reina in solucion.coords)
             {
-                foreach (var otra_reina in nueva_solucion.coords)
+                // Conflicto en columna o diagonal
+                if (nueva_reina.Item2 == otra_reina.Item2 || 
+                    Math.Abs(nueva_reina.Item1 - otra_reina.Item1) == Math.Abs(nueva_reina.Item2 - otra_reina.Item2))
                 {
-                    if (reina != otra_reina)
-                    {
-                        if (reina.Item2 == otra_reina.Item2 || Math.Abs(reina.Item1 - otra_reina.Item1) == Math.Abs(reina.Item2 - otra_reina.Item2))
-                        {
-                            conflictos++;
-                        }
-                    }
+                    return int.MaxValue / 2 ; // Penalización por conflicto
                 }
             }
-            return conflictos;
+            
+            return 1; // Coste normal de avanzar en la búsqueda
         }
 
         /// <summary>
@@ -43,21 +41,8 @@ public class Program
         /// <returns>Valor heurístico (número de conflictos).</returns>
         int calculo_heuristica(Solucion solucion)
         {
-            int conflictos = 0;
-            foreach (var reina in solucion.coords)
-            {
-                foreach (var otra_reina in solucion.coords)
-                {
-                    if (reina != otra_reina)
-                    {
-                        if (reina.Item2 == otra_reina.Item2 || Math.Abs(reina.Item1 - otra_reina.Item1) == Math.Abs(reina.Item2 - otra_reina.Item2))
-                        {
-                            conflictos++;
-                        }
-                    }
-                }
-            }
-            return conflictos;
+            
+            return reinas - solucion.coords.Count;
         }
 
         /// <summary>
@@ -126,7 +111,7 @@ public class Program
         int revisadosAvara = 0;
 
         // BÚSQUEDA A*
-        while (revisadosAstar < 5500)
+        while (revisadosAstar < 1500)
         {
             Console.WriteLine("\n\nBúsqueda por A*:");
 
@@ -148,7 +133,7 @@ public class Program
 
         // BÚSQUEDA POR COSTE UNIFORME
         reinas = 4;  // Restablecemos el número de reinas
-        while (revisadosUCS < 5500)
+        while (revisadosUCS < 1500)
         {
             Console.WriteLine("\n\nBúsqueda por Coste Uniforme:");
 
@@ -170,7 +155,7 @@ public class Program
 
         // BÚSQUEDA AVARA
         reinas = 4;  // Restablecemos el número de reinas
-        while (revisadosAvara < 5500)
+        while (revisadosAvara < 1500)
         {
             Console.WriteLine("\n\nBúsqueda Avara:");
 
