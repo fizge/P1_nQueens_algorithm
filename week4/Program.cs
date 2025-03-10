@@ -40,10 +40,33 @@ public class Program
         /// <param name="solucion">Solución actual.</param>
         /// <returns>Valor heurístico (número de conflictos).</returns>
         int calculo_heuristica(Solucion solucion)
+    {
+        int reinasColocadas = solucion.coords.Count;
+        int nuevaFila = reinasColocadas;
+        
+        // Si ya se han colocado todas, heurística es 0.
+        if (reinasColocadas == reinas) return 0;
+
+        // Calcular las columnas que estarían atacadas para la nueva fila.
+        HashSet<int> columnasAtacadas = new HashSet<int>();
+        foreach ((int fila, int col) in solucion.coords)
         {
-            
-            return reinas - solucion.coords.Count;
+            int d = nuevaFila - fila;
+            columnasAtacadas.Add(col);
+            if (col + d < reinas)
+                columnasAtacadas.Add(col + d);
+            if (col - d >= 0)
+                columnasAtacadas.Add(col - d);
         }
+
+        if (columnasAtacadas.Count == reinas)
+        {
+  
+            return int.MaxValue/2;
+        }
+        return reinas - reinasColocadas;
+    }
+
 
         /// <summary>
          /// Obtiene los vecinos de una solución.
