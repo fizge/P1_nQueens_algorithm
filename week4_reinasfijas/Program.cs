@@ -148,7 +148,7 @@ public class Program
 
             reinas++;
         }
-        /*
+        
         // BÚSQUEDA POR COSTE UNIFORME
         reinas = 4;  // Restablecemos el número de reinas
         while (revisadosUCS < 1500)
@@ -206,7 +206,7 @@ public class Program
 
             reinas++;
         }
-        */
+        
         // Imprimir los resultados finales
         Console.WriteLine("\nResultados:");
         Console.WriteLine("A*: " + string.Join(", ", lista_evaluadosAstar));
