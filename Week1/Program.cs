@@ -86,7 +86,7 @@ public class Program
                 {
                     (int, int) nodo_j = solucion.coords[j];
                     // Se verifica que no estén en la misma columna o en la misma diagonal.
-                    if (nodo_j.Item2 == nodo_i.Item2 || Math.Abs(nodo_j.Item2 - nodo_i.Item2) == Math.Abs(j - i))
+                    if (nodo_j.Item2 == nodo_i.Item2 || Math.Abs(nodo_j.Item2 - nodo_i.Item2) == Math.Abs(nodo_j.Item1 - nodo_i.Item1))
                         return false;
                 }
             }
