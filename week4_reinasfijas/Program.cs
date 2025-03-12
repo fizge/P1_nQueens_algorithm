@@ -61,6 +61,19 @@ public class Program
             return reinas;
         }
 
+        
+        bool fuera_de_tablero(Solucion solucion)
+        {
+            foreach ((int, int) nodo in solucion.coords)
+            {
+                if (nodo.Item1 >= reinas || nodo.Item2 >= reinas)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         List<(int, int)> obtener_vecinos(Solucion solucion)
         {
             int row = solucion.coords.Count == 0 ? -1 : primera_fila_sin_reina(solucion);
@@ -70,7 +83,7 @@ public class Program
                 for (int j = 0; j < reinas; j++)
                 {
                     (int, int) nuevo_nodo = (row, j);
-                    if (es_prometedor(solucion, nuevo_nodo))
+                    if (es_prometedor(solucion, nuevo_nodo) && !fuera_de_tablero(solucion)) 
                     {
                         vecinos.Add(nuevo_nodo);
                     }
@@ -141,9 +154,19 @@ public class Program
             else
             {
                 Console.WriteLine($"Tiempo transcurrido: {stopwatchAstar.ElapsedMilliseconds} ms");
-                Console.WriteLine("Coordenadas:  " + solucionAstar.ToString());
+                
+                if (fuera_de_tablero(solucionAstar))
+                {
+                    Console.WriteLine($"La solución encontrada tiene celdas no existentes en el tablero de {reinas} reinas.");   
+                    lista_evaluadosAstar.Add(-1);
+                }
+                else
+                {
+                    Console.WriteLine("Coordenadas:  " + solucionAstar.ToString());
+                    lista_evaluadosAstar.Add(revisadosAstar);
+                }
                 Console.WriteLine("Nodos evaluados:  " + revisadosAstar);
-                lista_evaluadosAstar.Add(revisadosAstar);
+                
             }
 
             reinas++;
@@ -170,9 +193,18 @@ public class Program
             else
             {
                 Console.WriteLine($"Tiempo transcurrido: {stopwatchUCS.ElapsedMilliseconds} ms");
-                Console.WriteLine("Coordenadas: " + solucionUCS.ToString());
+                if (fuera_de_tablero(solucionUCS))
+                {
+                    Console.WriteLine($"La solución encontrada tiene celdas no existentes en el tablero de {reinas} reinas."); 
+                    lista_evaluadosUCS.Add(-1);
+                }
+                else
+                {
+                    Console.WriteLine("Coordenadas:  " + solucionUCS.ToString());
+                    lista_evaluadosUCS.Add(revisadosUCS);
+                }
                 Console.WriteLine("Nodos evaluados: " + revisadosUCS);
-                lista_evaluadosUCS.Add(revisadosUCS);
+                
             }
 
             reinas++;
@@ -199,9 +231,18 @@ public class Program
             else
             {
                 Console.WriteLine($"Tiempo transcurrido: {stopwatchAvara.ElapsedMilliseconds} ms");
-                Console.WriteLine("Coordenadas: " + solucionAvara.ToString());
+                if (fuera_de_tablero(solucionAvara))
+                {
+                    Console.WriteLine($"La solución encontrada tiene celdas no existentes en el tablero de {reinas} reinas."); 
+                    lista_evaluadosAvara.Add(-1);
+                }
+                else
+                {
+                    Console.WriteLine("Coordenadas:  " + solucionAvara.ToString());
+                    lista_evaluadosAvara.Add(revisadosAvara);
+                }
                 Console.WriteLine("Nodos evaluados: " + revisadosAvara);
-                lista_evaluadosAvara.Add(revisadosAvara);
+                
             }
 
             reinas++;

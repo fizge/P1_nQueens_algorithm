@@ -118,6 +118,18 @@ public class Program
             return true;
         }
 
+        bool fuera_de_tablero(Solucion solucion)
+        {
+            foreach ((int, int) nodo in solucion.coords)
+            {
+                if (nodo.Item1 >= reinas || nodo.Item2 >= reinas)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Verifica si una solución cumple con el criterio de parada.
         /// El algoritmo finaliza cuando:
@@ -140,7 +152,7 @@ public class Program
                 {
                     (int, int) nodo_j = solucion.coords[j];
                     // Se verifica que no estén en la misma columna o en la misma diagonal.
-                    if (nodo_j.Item2 == nodo_i.Item2 || Math.Abs(nodo_j.Item2 - nodo_i.Item2) == Math.Abs(nodo_j.Item1 - nodo_i.Item1))
+                    if (nodo_j.Item2 == nodo_i.Item2 || Math.Abs(nodo_j.Item2 - nodo_i.Item2) == Math.Abs(j - i))
                         return false;
                 }
             }
