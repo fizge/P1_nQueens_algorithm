@@ -54,6 +54,17 @@ public class AlgoritmoDeBusqueda
         ListaCandidatos candidatos = lista;
         // Estado inicial: solución vacía (sin reinas colocadas)
         candidatos.anhadir(new Solucion(solucion_inicial, 0));
+        
+        // Añadir nodos (0, 3) y (2, 4) si no están en la solución inicial
+        if (!solucion_inicial.Contains((0, 3)))
+        {
+            candidatos.anhadir(new Solucion(new List<(int, int)> { (0, 3) }, 0));
+        }
+        if (!solucion_inicial.Contains((2, 4)))
+        {
+            candidatos.anhadir(new Solucion(new List<(int, int)> { (2, 4) }, 0));
+        }
+
         Dictionary<string, int> vistos = new Dictionary<string, int>();
         bool finalizado = false;
         int revisados = 0;
@@ -110,7 +121,7 @@ public class AEstrella : AlgoritmoDeBusqueda
     /// <summary>
     /// Inicializa una nueva instancia de AEstrella, utilizando una cola de prioridad como estructura de candidatos.
     /// </summary>
-    public AEstrella() : base(new ColaDePrioridad()) { }
+    public AEstrella() : base(new ColaDePrioridad()) {  }
 
     /// <summary>
     /// Calcula la prioridad de una solución sumando el coste acumulado y el valor heurístico.
