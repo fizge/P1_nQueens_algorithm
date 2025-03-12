@@ -4,8 +4,9 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        // Estado inicial: lista vacía, sin ninguna reina colocada.
+        // Estado inicial sin reinas prefijadas
         List<(int, int)> solucion_inicial = new List<(int, int)>();
+    
         // Número de reinas a colocar (tamaño del tablero).
         int reinas = 4;
 
@@ -40,85 +41,82 @@ public class Program
         /// <param name="solucion">Solución actual.</param>
         /// <returns>Valor heurístico (número de conflictos).</returns>
         int calculo_heuristica(Solucion solucion)
-    {
-        int reinasColocadas = solucion.coords.Count;
-        int nuevaFila = reinasColocadas;
-        
-        // Si ya se han colocado todas, heurística es 0.
-        if (reinasColocadas == reinas) return 0;
-
-        // Calcular las columnas que estarían atacadas para la nueva fila.
-        HashSet<int> columnasAtacadas = new HashSet<int>();
-        foreach ((int fila, int col) in solucion.coords)
         {
-            int d = nuevaFila - fila;
-            columnasAtacadas.Add(col);
-            if (col + d < reinas)
-                columnasAtacadas.Add(col + d);
-            if (col - d >= 0)
-                columnasAtacadas.Add(col - d);
-        }
+            int reinasColocadas = solucion.coords.Count;
+            int nuevaFila = reinasColocadas;
+            
+            // Si ya se han colocado todas, heurística es 0.
+            if (reinasColocadas == reinas) return 0;
 
-        if (columnasAtacadas.Count == reinas)
-        {
-  
-            return int.MaxValue/2;
-        }
-        return reinas - reinasColocadas;
-    }
+            // Calcular las columnas que estarían atacadas para la nueva fila.
+            HashSet<int> columnasAtacadas = new HashSet<int>();
+            foreach ((int fila, int col) in solucion.coords)
+            {
+                int d = nuevaFila - fila;
+                columnasAtacadas.Add(col);
+                if (col + d < reinas)
+                    columnasAtacadas.Add(col + d);
+                if (col - d >= 0)
+                    columnasAtacadas.Add(col - d);
+            }
 
+            if (columnasAtacadas.Count == reinas)
+            {
+                return int.MaxValue/2;
+            }
+            return reinas - reinasColocadas;
+        }
 
         /// <summary>
-         /// Obtiene los vecinos de una solución.
-         /// A partir de la solución actual, se generan todos los posibles estados
-         /// añadiendo una reina en cada posición de la siguiente fila.
-         /// 
-         /// Proceso:
-         /// 1. Determina la fila actual:
-         ///    - Si la solución está vacía, se toma la fila -1, de modo que al sumarle 1 se comienza en la fila 0.
-         ///    - Si ya hay reinas, se utiliza la fila de la última reina colocada.
-         /// 2. Si la siguiente fila es válida (menor que el número total de reinas),
-         ///    se generan vecinos para cada columna de esa fila.
-         /// Solo se añaden vecinos prometedores (sin conflictos con las reinas ya colocadas).
-         /// </summary>
-         /// <param name="solucion">Solución actual.</param>
-         /// <returns>Lista de vecinos (nuevas coordenadas posibles).</returns>
-         List<(int, int)> obtener_vecinos(Solucion solucion)
-         {
-             int row = solucion.coords.Count == 0 ? -1 : solucion.coords[^1].Item1;
-             List<(int, int)> vecinos = new List<(int, int)>();
-             if (row + 1 < reinas)
-             {
-                 for (int j = 0; j < reinas; j++)
-                 {
-                     (int, int) nuevo_nodo = (row + 1, j);
-                     if (es_prometedor(solucion, nuevo_nodo))
-                     {
-                         vecinos.Add(nuevo_nodo); // Añade la posición (siguiente fila, columna j)
-                     }
-                 }
-             }
-             return vecinos;
-         }
- 
-         /// <summary>
-         /// Verifica si la colocación de una nueva reina es prometedora (sin conflictos).
-         /// </summary>
-         /// <param name="solucion">Solución actual.</param>
-         /// <param name="nuevo_nodo">Nueva coordenada de la reina a colocar.</param>
-         /// <returns>True si es prometedor; de lo contrario, false.</returns>
-         bool es_prometedor(Solucion solucion, (int, int) nuevo_nodo)
-         {
-             foreach ((int, int) nodo in solucion.coords)
-             {
-                 if (nodo.Item2 == nuevo_nodo.Item2 || Math.Abs(nodo.Item2 - nuevo_nodo.Item2) == Math.Abs(nodo.Item1 - nuevo_nodo.Item1))
-                 {
-                     return false; // Conflicto en la misma columna o diagonal
-                 }
-             }
-             return true;
-         }
+        /// Obtiene los vecinos de una solución.
+        /// A partir de la solución actual, se generan todos los posibles estados
+        /// añadiendo una reina en cada posición de la siguiente fila.
+        /// 
+        /// Proceso:
+        /// 1. Determina la fila actual:
+        ///    - Si la solución está vacía, se toma la fila -1, de modo que al sumarle 1 se comienza en la fila 0.
+        ///    - Si ya hay reinas, se utiliza la fila de la última reina colocada.
+        /// 2. Si la siguiente fila es válida (menor que el número total de reinas),
+        ///    se generan vecinos para cada columna de esa fila.
+        /// Solo se añaden vecinos prometedores (sin conflictos con las reinas ya colocadas).
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <returns>Lista de vecinos (nuevas coordenadas posibles).</returns>
+        List<(int, int)> obtener_vecinos(Solucion solucion)
+        {
+            int row = solucion.coords.Count == 0 ? -1 : solucion.coords[^1].Item1;
+            List<(int, int)> vecinos = new List<(int, int)>();
+            if (row + 1 < reinas)
+            {
+                for (int j = 0; j < reinas; j++)
+                {
+                    (int, int) nuevo_nodo = (row + 1, j);
+                    if (es_prometedor(solucion, nuevo_nodo))
+                    {
+                        vecinos.Add(nuevo_nodo); // Añade la posición (siguiente fila, columna j)
+                    }
+                }
+            }
+            return vecinos;
+        }
 
+        /// <summary>
+        /// Verifica si la colocación de una nueva reina es prometedora (sin conflictos).
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <param name="nuevo_nodo">Nueva coordenada de la reina a colocar.</param>
+        /// <returns>True si es prometedor; de lo contrario, false.</returns>
+        bool es_prometedor(Solucion solucion, (int, int) nuevo_nodo)
+        {
+            foreach ((int, int) nodo in solucion.coords)
+            {
+                if (nodo.Item2 == nuevo_nodo.Item2 || Math.Abs(nodo.Item2 - nuevo_nodo.Item2) == Math.Abs(nodo.Item1 - nuevo_nodo.Item1))
+                {
+                    return false; // Conflicto en la misma columna o diagonal
+                }
+            }
+            return true;
+        }
 
         /// <summary>
         /// Verifica si una solución cumple con el criterio de parada.
@@ -172,6 +170,12 @@ public class Program
 
             stopwatchAstar.Stop();
 
+            if (solucionAstar == null)
+            {
+                Console.WriteLine("No se encontró una solución válida.");
+                break;
+            }
+
             Console.WriteLine($"Tiempo transcurrido: {stopwatchAstar.ElapsedMilliseconds} ms");
             Console.WriteLine("Coordenadas:  " + solucionAstar.ToString());
             Console.WriteLine("Nodos evaluados:  " + revisadosAstar);
@@ -194,6 +198,12 @@ public class Program
 
             stopwatchUCS.Stop();
 
+            if (solucionUCS == null)
+            {
+                Console.WriteLine("No se encontró una solución válida.");
+                break;
+            }
+
             Console.WriteLine($"Tiempo transcurrido: {stopwatchUCS.ElapsedMilliseconds} ms");
             Console.WriteLine("Coordenadas:  " + solucionUCS.ToString());
             Console.WriteLine("Nodos evaluados:  " + revisadosUCS);
@@ -215,6 +225,12 @@ public class Program
             (Solucion solucionAvara, revisadosAvara) = busquedaAvara.busqueda(solucion_inicial, criterio_parada, obtener_vecinos, calculo_coste, calculo_heuristica);
 
             stopwatchAvara.Stop();
+
+            if (solucionAvara == null)
+            {
+                Console.WriteLine("No se encontró una solución válida.");
+                break;
+            }
 
             Console.WriteLine($"Tiempo transcurrido: {stopwatchAvara.ElapsedMilliseconds} ms");
             Console.WriteLine("Coordenadas:  " + solucionAvara.ToString());
