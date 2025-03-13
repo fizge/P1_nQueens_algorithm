@@ -56,7 +56,7 @@ Si ya hemos colocado todas las reinas (`reinasColocadas == reinas`), significa q
 En el caso de que estemos con reinas fijas el cálculo de heurística cambia ligeramenente. Para calcular el índice de la `nuevaFila` se utiliza la función `primera_fila_sin_reina`. Por lo tanto, cuando se calcula la distancia entre la fila a tener en cuenta y la nueva fila se debe usar `Math.Abs()` para evitar que el resultado sea negativo.
 
 
-### `obetener_vecinos`
+### `obtener_vecinos`
 
 
 Anteriormente la funcion `obtener_vecinos` no tenía en cuenta si una casilla vecina ya estaba amenzada por otra reina o no. Para mejorar eso se implementa una nueva función `es_prometedor` para ver si una casilla ya está siendo amenazada por una reina. 
@@ -113,29 +113,35 @@ int primera_fila_sin_reina(Solucion solucion)
 
 ```
 
-
-De esta forma la implementación de la función `obtener_vecinos` cuando hay reinas fijas desde el inicio sería la siguiente:
-
+## Nueva versión de `calculo_heuristica` para reinas fijas
+El cálculo de la heurística ha sido ajustado para considerar la colocación de reinas fijas. En lugar de asumir que la siguiente fila vacía es `solucion.coords.Count`, se ha implementado la función `primera_fila_sin_reina` para identificar la primera fila disponible sin una reina colocada.
 ```csharp
-List<(int, int)> obtener_vecinos(Solucion solucion)
-        {
-            int row = solucion.coords.Count == 0 ? -1 : primera_fila_sin_reina(solucion);
-            List<(int, int)> vecinos = new List<(int, int)>();
-            if (row < reinas)
-            {
-                for (int j = 0; j < reinas; j++)
-                {
-                    (int, int) nuevo_nodo = (row, j);
-                    if (es_prometedor(solucion, nuevo_nodo) && !fuera_de_tablero(solucion)) 
-                    {
-                        vecinos.Add(nuevo_nodo);
-                    }
-                }
-            }
-            return vecinos;
-        }
-```
+int calculo_heuristica(Solucion solucion)
+{
+    int reinasColocadas = solucion.coords.Count;
+    int nuevaFila = primera_fila_sin_reina(solucion);
+    
+    // Si ya se han colocado todas, heurística es 0.
+    if (reinasColocadas == reinas) return 0;
 
+    HashSet<int> columnasAtacadas = new HashSet<int>();
+    foreach ((int fila, int col) in solucion.coords)
+    {
+        int d = Math.Abs(nuevaFila - fila);
+        columnasAtacadas.Add(col);
+        if (col + d < reinas)
+            columnasAtacadas.Add(col + d);
+        if (col - d >= 0)
+            columnasAtacadas.Add(col - d);
+    }
+
+    if (columnasAtacadas.Count == reinas)
+    {
+        return int.MaxValue / 2;
+    }
+    return reinas - reinasColocadas;
+}
+```
 
 ## 2. Comparación de Nodos Evaluados con y sin reinas fijas
 
