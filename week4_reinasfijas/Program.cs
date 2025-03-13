@@ -10,12 +10,21 @@ public class Program
         int reinas = 4;
 
         // Funciones locales (heurística, coste, vecinos, etc.) se mantienen igual
+        
+        
+        /// <summary>
+        /// Calcula el coste de añadir una nueva reina a la solución.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <param name="nueva_solucion">Nueva solución con la reina añadida.</param>
+        /// <returns>El coste de añadir la nueva reina.</returns>
         int calculo_coste(Solucion solucion, Solucion nueva_solucion)
         {
             // Se asume que la nueva reina se añadió al final
             (int, int) nueva_reina = nueva_solucion.coords.Last();
             foreach ((int, int) otra_reina in solucion.coords)
             {
+                // Verificar si hay conflicto en la misma columna o diagonal
                 if (nueva_reina.Item2 == otra_reina.Item2 ||
                     Math.Abs(nueva_reina.Item1 - otra_reina.Item1) == Math.Abs(nueva_reina.Item2 - otra_reina.Item2))
                 {
@@ -25,6 +34,11 @@ public class Program
             return 1;
         }
 
+        /// <summary>
+        /// Calcula la heurística de la solución actual.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <returns>El valor heurístico de la solución.</returns>
         int calculo_heuristica(Solucion solucion)
         {
             int reinasColocadas = solucion.coords.Count;
@@ -48,6 +62,11 @@ public class Program
             return reinas - reinasColocadas;
         }
 
+        /// <summary>
+        /// Encuentra la primera fila sin reina en la solución actual.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <returns>El índice de la primera fila sin reina.</returns>
         int primera_fila_sin_reina(Solucion solucion)
         {
             HashSet<int> filasOcupadas = new HashSet<int>(solucion.coords.Select(coord => coord.Item1));
@@ -61,7 +80,11 @@ public class Program
             return reinas;
         }
 
-        
+        /// <summary>
+        /// Verifica si alguna reina está fuera del tablero.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <returns>True si alguna reina está fuera del tablero, de lo contrario False.</returns>        
         bool fuera_de_tablero(Solucion solucion)
         {
             foreach ((int, int) nodo in solucion.coords)
@@ -74,6 +97,11 @@ public class Program
             return false;
         }
 
+        /// <summary>
+        /// Obtiene los vecinos de la solución actual.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <returns>Lista de coordenadas de los vecinos.</returns>
         List<(int, int)> obtener_vecinos(Solucion solucion)
         {
             int row = solucion.coords.Count == 0 ? -1 : primera_fila_sin_reina(solucion);
@@ -92,10 +120,17 @@ public class Program
             return vecinos;
         }
 
+        /// <summary>
+        /// Verifica si una nueva posición es prometedora.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <param name="nuevo_nodo">Nueva posición a verificar.</param>
+        /// <returns>True si la nueva posición es prometedora, de lo contrario False.</returns>
         bool es_prometedor(Solucion solucion, (int, int) nuevo_nodo)
         {
             foreach ((int, int) nodo in solucion.coords)
             {
+                // Verificar si hay conflicto en la misma columna o diagonal
                 if (nodo.Item2 == nuevo_nodo.Item2 ||
                     Math.Abs(nodo.Item2 - nuevo_nodo.Item2) == Math.Abs(nodo.Item1 - nuevo_nodo.Item1))
                 {
@@ -105,6 +140,11 @@ public class Program
             return true;
         }
 
+        /// <summary>
+        /// Verifica si se ha alcanzado el criterio de parada.
+        /// </summary>
+        /// <param name="solucion">Solución actual.</param>
+        /// <returns>True si se ha alcanzado el criterio de parada, de lo contrario False.</returns>
         bool criterio_parada(Solucion solucion)
         {
             if (solucion.coords.Count < reinas)
@@ -115,6 +155,7 @@ public class Program
                 for (int j = i + 1; j < solucion.coords.Count; j++)
                 {
                     (int, int) nodo_j = solucion.coords[j];
+                    // Verificar si hay conflicto en la misma columna o diagonal
                     if (nodo_j.Item2 == nodo_i.Item2 ||
                         Math.Abs(nodo_j.Item2 - nodo_i.Item2) == Math.Abs(nodo_j.Item1 - nodo_i.Item1))
                         return false;
@@ -252,6 +293,7 @@ public class Program
         Console.WriteLine("\nResultados:");
         Console.WriteLine("A*: " + string.Join(", ", lista_evaluadosAstar));
         Console.WriteLine("Coste Uniforme: " + string.Join(", ", lista_evaluadosUCS));
-        Console.WriteLine("Búsqueda Avara: " + string.Join(", ", lista_evaluadosAvara));
+        ConsolJ.WriteLine("Búsqueda Avara: " + string.Join(", J, lista_evaluadosAvara));
     }
 }
+JJ
