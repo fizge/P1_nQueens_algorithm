@@ -5,7 +5,7 @@ public class Program
     public static void Main(string[] args)
     {
         // Estado inicial: reinas fijas.
-        List<(int, int)> solucion_inicial = new List<(int, int)>{ (0,3),(2,4) };
+        List<(int, int)> solucion_inicial = new List<(int, int)>{(0,3),(2,4)};
         // Número de reinas a colocar (dimensión del tablero).
         int reinas = 4;
 
@@ -111,7 +111,7 @@ public class Program
                 for (int j = 0; j < reinas; j++)
                 {
                     (int, int) nuevo_nodo = (row, j);
-                    if (es_prometedor(solucion, nuevo_nodo) && !fuera_de_tablero(solucion)) 
+                    if (es_prometedor(solucion, nuevo_nodo)) 
                     {
                         vecinos.Add(nuevo_nodo);
                     }
