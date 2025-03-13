@@ -293,7 +293,6 @@ public class Program
         Console.WriteLine("\nResultados:");
         Console.WriteLine("A*: " + string.Join(", ", lista_evaluadosAstar));
         Console.WriteLine("Coste Uniforme: " + string.Join(", ", lista_evaluadosUCS));
-        ConsolJ.WriteLine("Búsqueda Avara: " + string.Join(", J, lista_evaluadosAvara));
+        Console.WriteLine("Búsqueda Avara: " + string.Join(", ", lista_evaluadosAvara));
     }
 }
-JJ
