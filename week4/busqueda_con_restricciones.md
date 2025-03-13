@@ -51,7 +51,9 @@ int calculo_heuristica(Solucion solucion)
         }
 ```
 
-Si ya hemos colocado todas las reinas (`reinasColocadas == reinas`), significa que tenemos una solución completa, así que el valor heurístico es 0 (no queda nada por hacer). Pero en caso contrario, se recorren todas las reinas ya colocadas y se agregan a `columnasAtacadas` las columnas en las que están las reinas además de las diagonales. Si todas las columnas están atacadas, significa que no hay lugar seguro para colocar una nueva reina. Se devuelve un valor muy alto (`int.MaxValue/2`) como castigo heurístico para que el algoritmo evite esta solución. Si todavía hay espacio para colocar reinas, la heurística es simplemente el número de reinas que faltan (`reinas - reinasColocadas`).
+Si ya hemos colocado todas las reinas (`reinasColocadas == reinas`), significa que tenemos una solución completa, así que el valor heurístico es 0 (no queda nada por hacer). Pero en caso contrario, se recorren todas las reinas ya colocadas y se agregan a `columnasAtacadas` las columnas en las que están las reinas además de las diagonales. Si todas las columnas están atacadas, significa que no hay lugar seguro para colocar una nueva reina. Se devuelve un valor muy alto (`int.MaxValue/2`) como castigo heurístico para que el algoritmo evite esta solución. Si todavía hay espacio para colocar reinas, la heurística es simplemente el número de reinas que faltan (`reinas - reinasColocadas`). 
+
+En el caso de que estemos con reinas fijas el cálculo de heurística cambia ligeramenente. Para calcular el índice de la `nuevaFila` se utiliza la función `primera_fila_sin_reina`. Por lo tanto, cuando se calcula la distancia entre la fila a tener en cuenta y la nueva fila se debe usar `Math.Abs()` para evitar que el resultado sea negativo.
 
 
 ### `obetener_vecinos`
